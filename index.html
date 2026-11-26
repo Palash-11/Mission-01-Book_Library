@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>বইঘর (BoiGhor) — প্রিয় বই এখন হাতের মুঠোয়</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts for Bengali Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- Custom Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FDFBF7',
+            warmwhite: '#F7F3EB',
+            forest: {
+              DEFAULT: '#1B4332',
+              light: '#2D6A4F',
+              dark: '#081C15',
+            },
+            amberwarm: {
+              DEFAULT: '#D97706',
+              hover: '#B45309',
+              light: '#FEF3C7',
+            }
+          },
+          fontFamily: {
+            sans: ['"Hind Siliguri"', 'sans-serif'],
+            serif: ['"Noto Serif Bengali"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FDFBF7;
+      color: #1F2937;
+    }
+    .book-shadow {
+      box-shadow: 0 20px 40px -15px rgba(27, 67, 50, 0.14);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-forest selection:text-white">
+
+  <!-- ==================== 1. STICKY NAVIGATION BAR ==================== -->
+  <header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-md border-b border-stone-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        
+        <!-- Brand Logo -->
+        <a href="#" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-xl bg-forest text-white flex items-center justify-center shadow-sm group-hover:bg-forest-light transition">
+            <!-- Book SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <div>
+            <span class="font-serif text-2xl font-bold text-forest tracking-tight block leading-none">বইঘর</span>
+            <span class="text-xs text-stone-500 font-medium">অনলাইন বুকশপ</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-7 text-base font-medium text-stone-700">
+          <a href="#features" class="hover:text-forest transition">সুবিধাসমূহ</a>
+          <a href="#products" class="hover:text-forest transition">ক্যাটাগরি ও অফার</a>
+          <a href="#reviews" class="hover:text-forest transition">পাঠক রিভিউ</a>
+          <a href="#faq" class="hover:text-forest transition">জিজ্ঞাসা</a>
+          <a href="#contact" class="hover:text-forest transition">যোগাযোগ</a>
+        </nav>
+
+        <!-- Primary Header CTA & Mobile Menu Button -->
+        <div class="flex items-center gap-3">
+          <button onclick="openOrderModal('পছন্দের বই')" class="bg-amberwarm hover:bg-amberwarm-hover text-white font-semibold px-4 sm:px-5 py-2.5 rounded-xl shadow-sm hover:shadow transition text-sm sm:text-base cursor-pointer">
+            এখনই অর্ডার করুন
+          </button>
+
+          <!-- Mobile Menu Hamburger -->
+          <button id="mobile-menu-btn" aria-label="মেনু খুলুন" class="md:hidden p-2.5 rounded-xl text-stone-700 hover:bg-stone-200/60 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-stone-200 px-4 pt-2 pb-5 space-y-2">
+      <a href="#features" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-warmwhite hover:text-forest">সুবিধাসমূহ</a>
+      <a href="#products" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-warmwhite hover:text-forest">ক্যাটাগরি ও অফার</a>
+      <a href="#reviews" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-warmwhite hover:text-forest">পাঠক রিভিউ</a>
+      <a href="#faq" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-warmwhite hover:text-forest">জিজ্ঞাসা</a>
+      <a href="#contact" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-stone-700 hover:bg-warmwhite hover:text-forest">যোগাযোগ</a>
+    </div>
+  </header>
+
+  <!-- ==================== 2. HERO SECTION ==================== -->
+  <section class="relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-warmwhite/80 to-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- Left Copy Content -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-900/10 text-forest font-semibold text-sm">
+            <span class="w-2 h-2 rounded-full bg-amberwarm animate-pulse"></span>
+            বিশেষ বইমেলা ও মৌসুমি ছাড় চলছে!
+          </div>
+
+          <h1 class="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-forest-dark leading-tight">
+            প্রিয় বই এখন হাতের মুঠোয়—ঘরে বসেই পান সেরা ছাড় ও দ্রুত ডেলিভারি।
+          </h1>
+
+          <p class="text-stone-600 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            উপন্যাস, আত্ম-উন্নয়ন, ভর্তি ও চাকরি প্রস্তুতি থেকে শুরু করে দুর্লভ বই—সব প্রকাশনীর বইয়ে <span class="font-bold text-forest">২৫%–৩৫% পর্যন্ত ছাড়</span>। ক্যাশ অন ডেলিভারিতে সারাদেশে পৌঁছায়।
+          </p>
+
+          <!-- Hero CTA Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
+            <a href="#products" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-forest hover:bg-forest-light text-white font-semibold px-7 py-3.5 rounded-xl shadow-md hover:shadow-lg transition text-base sm:text-lg">
+              <span>বই দেখুন ও অর্ডার করুন</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+
+            <a href="https://wa.me/8801700000000?text=আসসালামু%20আলাইকুম,%20আমি%20একটি%20বইয়ের%20খোঁজ%20নিতে%20চাই।" target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-forest border-2 border-forest/20 font-semibold px-6 py-3.5 rounded-xl transition text-base">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+              </svg>
+              <span>হোয়াটসঅ্যাপে বইয়ের খোঁজ নিন</span>
+            </a>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2.5 text-sm font-medium text-stone-700">
+            <div class="flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-emerald-100 text-forest flex items-center justify-center text-xs font-bold">✓</span>
+              ১০০% অরিজিনাল প্রিন্ট
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-emerald-100 text-forest flex items-center justify-center text-xs font-bold">✓</span>
+              ক্যাশ অন ডেলিভারি
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-amber-100 text-amberwarm flex items-center justify-center text-xs font-bold">★</span>
+              প্রতি অর্ডারে ফ্রি বুকমার্ক গিফট
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual Showcase Card -->
+        <div class="lg:col-span-5">
+          <div class="relative bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 book-shadow">
+            <!-- Discount Floating Pill -->
+            <div class="absolute -top-4 right-6 bg-amberwarm text-white font-bold px-4 py-1.5 rounded-full shadow-md text-sm">
+              ৩৫% পর্যন্ত ছাড়!
+            </div>
+
+            <div class="space-y-5">
+              <div class="flex items-center justify-between border-b border-stone-100 pb-4">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wider text-stone-400">পাঠকদের পছন্দের শীর্ষে</p>
+                  <h2 class="font-serif text-xl font-bold text-forest-dark">সপ্তাহের বেস্টসেলার কম্বো</h2>
+                </div>
+                <span class="bg-emerald-50 text-forest text-xs font-bold px-3 py-1 rounded-lg">ফ্রি গিফট বক্স</span>
+              </div>
+
+              <!-- Illustrative Book Stack Preview -->
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-warmwhite rounded-2xl p-4 border border-stone-200/60 flex flex-col justify-between">
+                  <div class="w-full h-28 rounded-xl bg-gradient-to-br from-forest to-forest-light text-white p-3 flex flex-col justify-between shadow-inner">
+                    <span class="text-[11px] bg-white/20 w-fit px-2 py-0.5 rounded">উপন্যাস</span>
+                    <p class="font-serif font-bold text-sm leading-snug">অপরাহ্ণের ছায়া ও রোদ্দুর</p>
+                  </div>
+                  <div class="mt-3">
+                    <div class="flex items-baseline gap-2">
+                      <span class="font-bold text-forest text-base">৳২৬০</span>
+                      <span class="text-xs text-stone-400 line-through">৳৪০০</span>
+                    </div>
+                    <p class="text-xs text-stone-500 mt-0.5">৩৫% ছাড় • স্টকে আছে</p>
+                  </div>
+                </div>
+
+                <div class="bg-warmwhite rounded-2xl p-4 border border-stone-200/60 flex flex-col justify-between">
+                  <div class="w-full h-28 rounded-xl bg-gradient-to-br from-amber-700 to-amberwarm text-white p-3 flex flex-col justify-between shadow-inner">
+                    <span class="text-[11px] bg-white/20 w-fit px-2 py-0.5 rounded">আত্ম-উন্নয়ন</span>
+                    <p class="font-serif font-bold text-sm leading-snug">অভ্যাসের জাদু ও সাফল্য</p>
+                  </div>
+                  <div class="mt-3">
+                    <div class="flex items-baseline gap-2">
+                      <span class="font-bold text-forest text-base">৳২৮০</span>
+                      <span class="text-xs text-stone-400 line-through">৳৪০০</span>
+                    </div>
+                    <p class="text-xs text-stone-500 mt-0.5">৩০% ছাড় • স্টকে আছে</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mini Packaging Promise Bar -->
+              <div class="bg-emerald-50/80 rounded-2xl p-3.5 flex items-center gap-3 border border-emerald-100">
+                <div class="w-10 h-10 rounded-xl bg-forest text-white flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+                <p class="text-xs sm:text-sm text-stone-700 leading-snug">
+                  <strong class="text-forest-dark">সুরক্ষিত বাবল-র‍্যাপ প্যাকেজিং:</strong> বইয়ের কোণা না ভাঙার নিশ্চয়তা ও হাতে লেখা ধন্যবাদ নোট!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. FEATURES / WHY CHOOSE US ==================== -->
+  <section id="features" class="py-16 md:py-24 bg-white border-y border-stone-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <span class="text-amberwarm font-semibold text-sm tracking-wide uppercase">আমাদের বিশেষত্ব</span>
+        <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest-dark mt-2">
+          কেন হাজারো পাঠক আমাদের ওপর আস্থা রাখছেন?
+        </h2>
+        <p class="text-stone-600 mt-3 text-base sm:text-lg">
+          শুধু বই বিক্রি নয়, আমরা পাঠকের বই কেনা ও পড়ার অভিজ্ঞতাকে সহজ, নিরাপদ ও আনন্দময় করে তুলি।
+        </p>
+      </div>
+
+      <!-- 6 Feature Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        
+        <!-- Feature 1 -->
+        <div class="bg-cream rounded-2xl p-6 border border-stone-200/80 hover:border-forest/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-forest flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl font-bold text-forest-dark mb-2">যানজট ও দোকান ঘোরার ঝামেলা নেই</h3>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            বাংলাবাজার বা নীলক্ষেতের ভিড় ঠেলে সময় ও যাতায়াত খরচ নষ্ট না করে ঘরে বসেই পছন্দের বই অর্ডার করুন।
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-cream rounded-2xl p-6 border border-stone-200/80 hover:border-forest/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-forest flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl font-bold text-forest-dark mb-2">এক ছাদের নিচে সব প্রকাশনী</h3>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            আলাদা দোকানে না ঘুরে দেশের ও বিদেশের শত শত প্রকাশনীর বই লেখক ও বিষয় অনুযায়ী এক জায়গাতেই বেছে নিন।
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-cream rounded-2xl p-6 border border-stone-200/80 hover:border-forest/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 text-amberwarm flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl font-bold text-forest-dark mb-2">পার্সোনালাইজড বুক সাজেশন</h3>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            কোন বইটি পড়বেন বুঝতে পারছেন না? আপনার রুচি ও আগ্রহ জানান, আমাদের বুক-এক্সপার্টরা সেরা বইটি সাজেস্ট করবেন।
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="bg-cream rounded-2xl p-6 border border-stone-200/80 hover:border-forest/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 text-amberwarm flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl font-bold text-forest-dark mb-2">নান্দনিক প্যাকেজিং ও ফ্রি গিফট</h3>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            প্রতিটি বইয়ের সাথে থাকছে সুন্দর বুকমার্ক, লেখকের উক্তি কার্ড ও সুরক্ষিত প্যাকেজিং—যাতে বইয়ের কোণা না ভাঙে।
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="bg-cream rounded-2xl p-6 border border-stone-200/80 hover:border-forest/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-forest flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl font-bold text-forest-dark mb-2">সহজ রিপ্লেসমেন্ট নিশ্চয়তা</h3>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            বইয়ের পাতা ছেঁড়া থাকলে বা ভুল বই গেলে কোনো ঝামেলা ছাড়াই দ্রুত পরিবর্তন করে দেওয়ার শতভাগ নিশ্চয়তা।
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="bg-cream rounded-2xl p-6 border border-stone-200/80 hover:border-forest/30 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-forest flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl font-bold text-forest-dark mb-2">নিশ ও দুর্লভ বইয়ের খোঁজ</h3>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            বাজারে সহজে পাওয়া যায় না এমন পুরোনো, অনুবাদ বা বিশেষ ক্যাটাগরির বই সোর্সিং করে পৌঁছে দেওয়ার বিশেষ সুবিধা।
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. PRODUCTS, OFFERS & DELIVERY ==================== -->
+  <section id="products" class="py-16 md:py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Heading -->
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-amberwarm font-semibold text-sm tracking-wide uppercase">বইয়ের সম্ভার ও ডেলিভারি</span>
+        <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest-dark mt-2">
+          আমাদের জনপ্রিয় ক্যাটাগরি, অফার ও ডেলিভারি সুবিধা
+        </h2>
+        <p class="text-stone-600 mt-3 text-base sm:text-lg">
+          ক্যাটাগরি বেছে নিয়ে পছন্দের বইয়ে ক্লিক করে সরাসরি ক্যাশ অন ডেলিভারিতে অর্ডার করুন।
+        </p>
+      </div>
+
+      <!-- Interactive Category Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2.5 mb-10" id="category-tabs">
+        <button data-category="all" class="cat-btn active bg-forest text-white px-4 py-2 rounded-xl text-sm sm:text-base font-medium transition cursor-pointer">সব বই</button>
+        <button data-category="fiction" class="cat-btn bg-white text-stone-700 hover:bg-warmwhite border border-stone-200 px-4 py-2 rounded-xl text-sm sm:text-base font-medium transition cursor-pointer">গল্প-উপন্যাস</button>
+        <button data-category="nonfiction" class="cat-btn bg-white text-stone-700 hover:bg-warmwhite border border-stone-200 px-4 py-2 rounded-xl text-sm sm:text-base font-medium transition cursor-pointer">আত্ম-উন্নয়ন</button>
+        <button data-category="academic" class="cat-btn bg-white text-stone-700 hover:bg-warmwhite border border-stone-200 px-4 py-2 rounded-xl text-sm sm:text-base font-medium transition cursor-pointer">একাডেমিক ও জব</button>
+        <button data-category="kids" class="cat-btn bg-white text-stone-700 hover:bg-warmwhite border border-stone-200 px-4 py-2 rounded-xl text-sm sm:text-base font-medium transition cursor-pointer">শিশু-কিশোর</button>
+        <button data-category="gift" class="cat-btn bg-white text-stone-700 hover:bg-warmwhite border border-stone-200 px-4 py-2 rounded-xl text-sm sm:text-base font-medium transition cursor-pointer">গিফট বক্স ও কম্বো</button>
+      </div>
+
+      <!-- Book Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14" id="book-grid">
+        
+        <!-- Book 1 -->
+        <div class="book-card bg-white rounded-2xl p-5 border border-stone-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="fiction">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-semibold bg-emerald-50 text-forest px-2.5 py-1 rounded-lg">গল্প-উপন্যাস</span>
+              <span class="text-xs font-bold bg-amber-100 text-amberwarm-hover px-2.5 py-1 rounded-lg">৩০% ছাড়</span>
+            </div>
+            <div class="h-36 rounded-xl bg-gradient-to-r from-forest-dark to-forest p-4 text-white flex flex-col justify-end mb-4">
+              <p class="text-xs text-emerald-200">সমকালীন উপন্যাস</p>
+              <h3 class="font-serif text-lg font-bold leading-snug">জোছনা ও মেঘের গল্প</h3>
+            </div>
+            <p class="text-xs text-stone-500 mb-1">লেখক: তানজিম হাসান • অরিজিনাল অফসেট প্রিন্ট</p>
+            <p class="text-sm text-stone-600 line-clamp-2">সম্পর্ক, স্মৃতি এবং জীবনের না বলা কথাগুলো নিয়ে হৃদয়ছোঁয়া এক সমকালীন উপন্যাস।</p>
+          </div>
+          <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <div>
+              <span class="text-xl font-bold text-forest">৳২৮০</span>
+              <span class="text-sm text-stone-400 line-through ml-1.5">৳৪০০</span>
+            </div>
+            <button onclick="openOrderModal('জোছনা ও মেঘের গল্প (৳২৮০)')" class="bg-forest hover:bg-forest-light text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition cursor-pointer">
+              অর্ডার করুন
+            </button>
+          </div>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="book-card bg-white rounded-2xl p-5 border border-stone-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="nonfiction">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-semibold bg-emerald-50 text-forest px-2.5 py-1 rounded-lg">আত্ম-উন্নয়ন</span>
+              <span class="text-xs font-bold bg-amber-100 text-amberwarm-hover px-2.5 py-1 rounded-lg">৩৫% ছাড়</span>
+            </div>
+            <div class="h-36 rounded-xl bg-gradient-to-r from-amber-800 to-amberwarm p-4 text-white flex flex-col justify-end mb-4">
+              <p class="text-xs text-amber-100">ক্যারিয়ার ও অভ্যাস</p>
+              <h3 class="font-serif text-lg font-bold leading-snug">প্রতিদিনের ছোট অভ্যাস</h3>
+            </div>
+            <p class="text-xs text-stone-500 mb-1">অনুবাদ সংস্করণ • হার্ডকভার</p>
+            <p class="text-sm text-stone-600 line-clamp-2">ছোট ছোট ইতিবাচক পরিবর্তনের মাধ্যমে কীভাবে নিজেকে আরও উৎপাদনশীল ও সফল করে তুলবেন তার সহজ গাইড।</p>
+          </div>
+          <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <div>
+              <span class="text-xl font-bold text-forest">৳২৬০</span>
+              <span class="text-sm text-stone-400 line-through ml-1.5">৳৪০০</span>
+            </div>
+            <button onclick="openOrderModal('প্রতিদিনের ছোট অভ্যাস (৳২৬০)')" class="bg-forest hover:bg-forest-light text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition cursor-pointer">
+              অর্ডার করুন
+            </button>
+          </div>
+        </div>
+
+        <!-- Book 3 -->
+        <div class="book-card bg-white rounded-2xl p-5 border border-stone-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="academic">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-semibold bg-emerald-50 text-forest px-2.5 py-1 rounded-lg">একাডেমিক ও জব</span>
+              <span class="text-xs font-bold bg-amber-100 text-amberwarm-hover px-2.5 py-1 rounded-lg">২৫% ছাড়</span>
+            </div>
+            <div class="h-36 rounded-xl bg-gradient-to-r from-slate-800 to-slate-600 p-4 text-white flex flex-col justify-end mb-4">
+              <p class="text-xs text-slate-200">বিসিএস ও ব্যাংক প্রস্তুতি</p>
+              <h3 class="font-serif text-lg font-bold leading-snug">কমপ্লিট জব সল্যুশন ও ডাইজেস্ট</h3>
+            </div>
+            <p class="text-xs text-stone-500 mb-1">সর্বশেষ সংস্করণ • নির্ভুল উত্তরমালা</p>
+            <p class="text-sm text-stone-600 line-clamp-2">সাম্প্রতিক সাধারণ জ্ঞান, গণিত ও ইংরেজি বিশ্লেষণসহ চাকরি ও ভর্তি পরীক্ষার পূর্ণাঙ্গ সহায়িকা।</p>
+          </div>
+          <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <div>
+              <span class="text-xl font-bold text-forest">৳৪৫০</span>
+              <span class="text-sm text-stone-400 line-through ml-1.5">৳৬০০</span>
+            </div>
+            <button onclick="openOrderModal('কমপ্লিট জব সল্যুশন ও ডাইজেস্ট (৳৪৫০)')" class="bg-forest hover:bg-forest-light text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition cursor-pointer">
+              অর্ডার করুন
+            </button>
+          </div>
+        </div>
+
+        <!-- Book 4 -->
+        <div class="book-card bg-white rounded-2xl p-5 border border-stone-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="kids">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-semibold bg-emerald-50 text-forest px-2.5 py-1 rounded-lg">শিশু-কিশোর</span>
+              <span class="text-xs font-bold bg-amber-100 text-amberwarm-hover px-2.5 py-1 rounded-lg">৩০% ছাড়</span>
+            </div>
+            <div class="h-36 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 p-4 text-white flex flex-col justify-end mb-4">
+              <p class="text-xs text-teal-100">সচিত্র গল্পের সিরিজ</p>
+              <h3 class="font-serif text-lg font-bold leading-snug">ছোটদের রূপকথা ও বিজ্ঞানের মজা</h3>
+            </div>
+            <p class="text-xs text-stone-500 mb-1">রঙিন আর্ট পেপার • ৫–১২ বছর</p>
+            <p class="text-sm text-stone-600 line-clamp-2">সন্তানের কল্পনাশক্তি ও পড়ার অভ্যাস গড়ে তুলতে রঙিন ছবিতে সাজানো শিক্ষণীয় গল্পের বই।</p>
+          </div>
+          <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <div>
+              <span class="text-xl font-bold text-forest">৳২১০</span>
+              <span class="text-sm text-stone-400 line-through ml-1.5">৳৩০০</span>
+            </div>
+            <button onclick="openOrderModal('ছোটদের রূপকথা ও বিজ্ঞানের মজা (৳২১০)')" class="bg-forest hover:bg-forest-light text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition cursor-pointer">
+              অর্ডার করুন
+            </button>
+          </div>
+        </div>
+
+        <!-- Book 5 -->
+        <div class="book-card bg-white rounded-2xl p-5 border border-stone-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="gift">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-semibold bg-amber-100 text-amberwarm-hover px-2.5 py-1 rounded-lg">গিফট বক্স ও কম্বো</span>
+              <span class="text-xs font-bold bg-emerald-100 text-forest px-2.5 py-1 rounded-lg">ফ্রি ডেলিভারি</span>
+            </div>
+            <div class="h-36 rounded-xl bg-gradient-to-r from-rose-900 to-amber-800 p-4 text-white flex flex-col justify-end mb-4">
+              <p class="text-xs text-rose-100">প্রিয়জনের জন্য সেরা উপহার</p>
+              <h3 class="font-serif text-lg font-bold leading-snug">স্পেশাল বুক-গিফট বক্স (৩টি বই)</h3>
+            </div>
+            <p class="text-xs text-stone-500 mb-1">৩টি বেস্টসেলার বই + ডায়েরি + ৩টি বুকমার্ক</p>
+            <p class="text-sm text-stone-600 line-clamp-2">জন্মদিন বা বিশেষ দিবসে প্রিয়জনকে চমকে দিতে কাস্টম উইশ-কার্ডসহ প্রিমিয়াম গিফট বক্স।</p>
+          </div>
+          <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <div>
+              <span class="text-xl font-bold text-forest">৳৯৯৯</span>
+              <span class="text-sm text-stone-400 line-through ml-1.5">৳১,৪৫০</span>
+            </div>
+            <button onclick="openOrderModal('স্পেশাল বুক-গিফট বক্স - ৩টি বই (৳৯৯৯)')" class="bg-amberwarm hover:bg-amberwarm-hover text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition cursor-pointer">
+              অর্ডার করুন
+            </button>
+          </div>
+        </div>
+
+        <!-- Book 6: Custom Book Sourcing -->
+        <div class="book-card bg-warmwhite rounded-2xl p-5 border-2 border-dashed border-forest/30 flex flex-col justify-between" data-category="all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-semibold bg-forest text-white px-2.5 py-1 rounded-lg">বিশেষ সেবা</span>
+              <span class="text-xs font-semibold text-forest">প্রি-অর্ডার ও সোর্সিং</span>
+            </div>
+            <div class="h-36 rounded-xl bg-white border border-stone-200 p-4 flex flex-col justify-center items-center text-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-amberwarm mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              <h3 class="font-serif text-lg font-bold text-forest-dark">তালিকায় আপনার বইটি নেই?</h3>
+            </div>
+            <p class="text-sm text-stone-600">
+              যেকোনো প্রকাশনীর বই, দুর্লভ বা পুরোনো বই, কিংবা স্কুল-কলেজ ও লাইব্রেরির বাল্ক অর্ডারের জন্য বইয়ের নাম লিখে অর্ডার দিন।
+            </p>
+          </div>
+          <div class="mt-5 pt-4 border-t border-stone-200/70">
+            <button onclick="openOrderModal('কাস্টম বইয়ের তালিকা / প্রি-অর্ডার')" class="w-full bg-forest hover:bg-forest-light text-white text-sm font-semibold px-4 py-3 rounded-xl transition cursor-pointer">
+              বইয়ের নাম লিখে অর্ডার করুন
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pricing, Offers & Delivery Summary Strip -->
+      <div class="bg-forest text-white rounded-3xl p-6 sm:p-10 shadow-lg">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+          
+          <!-- Offer Box -->
+          <div class="space-y-2 border-b md:border-b-0 md:border-r border-white/15 pb-6 md:pb-0 md:pr-6">
+            <span class="inline-block bg-amberwarm text-white text-xs font-bold px-3 py-1 rounded-full">বিশেষ অফার</span>
+            <h3 class="font-serif text-xl sm:text-2xl font-bold">২০%–৩৫% নিয়মিত ছাড়</h3>
+            <p class="text-emerald-100 text-sm leading-relaxed">
+              ৩–৫টি বইয়ের কম্বো ডিলে বাড়তি ছাড় এবং <strong class="text-white">৯৯৯+ টাকার অর্ডারে সারাদেশে ফ্রি ডেলিভারি!</strong>
+            </p>
+          </div>
+
+          <!-- Delivery Info Box -->
+          <div class="space-y-2 border-b md:border-b-0 md:border-r border-white/15 pb-6 md:pb-0 md:pr-6">
+            <span class="inline-block bg-white/15 text-emerald-100 text-xs font-bold px-3 py-1 rounded-full">দ্রুত ডেলিভারি ও COD</span>
+            <h3 class="font-serif text-xl sm:text-2xl font-bold">বই হাতে পেয়ে টাকা দিন</h3>
+            <ul class="text-emerald-100 text-sm space-y-1">
+              <li>• <strong class="text-white">ঢাকার ভেতরে:</strong> ৬০ টাকা (১–২ কার্যদিবস)</li>
+              <li>• <strong class="text-white">ঢাকার বাইরে:</strong> ১২০ টাকা (২–৪ কার্যদিবস)</li>
+            </ul>
+          </div>
+
+          <!-- CTA Action Box -->
+          <div class="text-center md:text-left space-y-3">
+            <p class="text-sm text-emerald-100">কোনো অগ্রিম পেমেন্ট ছাড়াই এখনই আপনার পছন্দের বই বুক করুন।</p>
+            <button onclick="openOrderModal('কম্বো অফার / পছন্দের বই')" class="w-full sm:w-auto bg-amberwarm hover:bg-amberwarm-hover text-white font-bold px-6 py-3.5 rounded-xl shadow transition cursor-pointer">
+              আজকের অফার ও কম্বো দেখুন
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 5. CUSTOMER REVIEWS SECTION ==================== -->
+  <section id="reviews" class="py-16 md:py-24 bg-white border-y border-stone-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-amberwarm font-semibold text-sm tracking-wide uppercase">পাঠকদের ভালোবাসা</span>
+          <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest-dark mt-2">
+            পাঠকদের চোখে আমাদের বই ও সেবা
+          </h2>
+        </div>
+
+        <!-- Rating Summary Badge -->
+        <div class="bg-warmwhite border border-stone-200 rounded-2xl px-5 py-3.5 flex items-center gap-4 w-fit">
+          <div class="text-3xl font-bold text-forest">৪.৯<span class="text-base text-stone-400 font-normal">/৫</span></div>
+          <div>
+            <div class="text-amberwarm text-sm tracking-wider">★★★★★</div>
+            <p class="text-xs text-stone-600 font-medium">১,৫০০+ ভেরিফায়েড পাঠকের রিভিউ</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Review Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        
+        <!-- Review 1 -->
+        <div class="bg-cream rounded-2xl p-6 sm:p-7 border border-stone-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-amberwarm text-base">★★★★★</span>
+              <span class="text-xs bg-emerald-100 text-forest font-semibold px-2.5 py-0.5 rounded-full">প্যাকেজিং ও ডেলিভারি</span>
+            </div>
+            <p class="text-stone-700 text-base leading-relaxed italic">
+              “ঢাকার বাইরে জেলা শহরে মাত্র ২ দিনে বই পেয়েছি। বাবল র‍্যাপ ও মজবুত বক্সে দেওয়ায় বইয়ের একটা কোণাও ভাঙেনি, ভেতরে সুন্দর বুকমার্ক আর নোটও ছিল।”
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200/70 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-forest text-white font-bold flex items-center justify-center">তা</div>
+            <div>
+              <h4 class="font-bold text-forest-dark text-sm">তানভীর আহমেদ</h4>
+              <p class="text-xs text-stone-500">রাজশাহী • ভেরিফায়েড ক্রেতা</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-cream rounded-2xl p-6 sm:p-7 border border-stone-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-amberwarm text-base">★★★★★</span>
+              <span class="text-xs bg-amber-100 text-amberwarm-hover font-semibold px-2.5 py-0.5 rounded-full">বইয়ের মান ও সাজেশন</span>
+            </div>
+            <p class="text-stone-700 text-base leading-relaxed italic">
+              “নিজের ক্যারিয়ার ও রিডিং হ্যাবিট শুরুর জন্য কোন বই নেব দ্বিধায় ছিলাম। পেজে মেসেজ দেওয়ার পর যে বইটি সাজেস্ট করেছে, দারুণ লেগেছে; কাগজ ও বাঁধাইও বেশ ভালো।”
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200/70 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-amberwarm text-white font-bold flex items-center justify-center">নু</div>
+            <div>
+              <h4 class="font-bold text-forest-dark text-sm">নুসরাত জাহান</h4>
+              <p class="text-xs text-stone-500">ঢাকা • ভেরিফায়েড ক্রেতা</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-cream rounded-2xl p-6 sm:p-7 border border-stone-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-amberwarm text-base">★★★★★</span>
+              <span class="text-xs bg-emerald-100 text-forest font-semibold px-2.5 py-0.5 rounded-full">গিফট ও ফ্যামিলি</span>
+            </div>
+            <p class="text-stone-700 text-base leading-relaxed italic">
+              “মেয়ের জন্য গল্পের বই আর প্রিয়জনকে স্পেশাল গিফট বক্স নিয়েছিলাম। কাস্টম উইশ-কার্ডসহ সময়মতো ডেলিভারি পেয়ে পরিবারের সবাই খুব খুশি।”
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200/70 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-forest-light text-white font-bold flex items-center justify-center">র</div>
+            <div>
+              <h4 class="font-bold text-forest-dark text-sm">রফিকুল ইসলাম</h4>
+              <p class="text-xs text-stone-500">চট্টগ্রাম • ভেরিফায়েড ক্রেতা</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 6. INTERACTIVE FAQ SECTION ==================== -->
+  <section id="faq" class="py-16 md:py-24 bg-cream">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-amberwarm font-semibold text-sm tracking-wide uppercase">আপনার প্রশ্নের উত্তর</span>
+        <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest-dark mt-2">
+          সচরাচর জানতে চাওয়া প্রশ্নাবলি (FAQ)
+        </h2>
+      </div>
+
+      <div class="space-y-4" id="faq-container">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item bg-white rounded-2xl border border-stone-200/90 overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-bold text-forest-dark text-base sm:text-lg cursor-pointer">
+            <span>১. অর্ডার করার নিয়ম কী? অগ্রিম টাকা দিতে হবে কি?</span>
+            <span class="faq-icon text-amberwarm text-2xl font-normal transition-transform duration-200">+</span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-stone-600 text-sm sm:text-base leading-relaxed border-t border-stone-100 pt-3">
+            আমাদের পেজের “অর্ডার করুন” বাটনে ক্লিক করে অথবা ফেসবুক/হোয়াটসঅ্যাপে বইয়ের নাম, আপনার নাম, ফোন নম্বর ও পূর্ণ ঠিকানা দিন। কোনো অগ্রিম টাকা ছাড়াই সম্পূর্ণ <strong>ক্যাশ অন ডেলিভারিতে (COD)</strong> অর্ডার কনফার্ম হবে।
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item bg-white rounded-2xl border border-stone-200/90 overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-bold text-forest-dark text-base sm:text-lg cursor-pointer">
+            <span>২. ডেলিভারি চার্জ কত এবং কত দিনের মধ্যে বই পাব?</span>
+            <span class="faq-icon text-amberwarm text-2xl font-normal transition-transform duration-200">+</span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-stone-600 text-sm sm:text-base leading-relaxed border-t border-stone-100 pt-3">
+            ঢাকার ভেতরে ডেলিভারি চার্জ <strong>৬০ টাকা</strong> (১–২ কার্যদিবস) এবং ঢাকার বাইরে সারাদেশে <strong>১২০ টাকা</strong> (২–৪ কার্যদিবস)। এছাড়া ৯৯৯ টাকা বা তার বেশি অর্ডারে ডেলিভারি সম্পূর্ণ ফ্রি!
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item bg-white rounded-2xl border border-stone-200/90 overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-bold text-forest-dark text-base sm:text-lg cursor-pointer">
+            <span>৩. বইয়ে কোনো ত্রুটি থাকলে বা ভুল বই গেলে কী করব?</span>
+            <span class="faq-icon text-amberwarm text-2xl font-normal transition-transform duration-200">+</span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-stone-600 text-sm sm:text-base leading-relaxed border-t border-stone-100 pt-3">
+            ডেলিভারি পাওয়ার পর বইয়ের পাতা ছেঁড়া, প্রিন্ট মিসিং বা ভুল বই গেলে আমাদের কাস্টমার সাপোর্টে জানালেই সম্পূর্ণ ফ্রি-তে দ্রুত নতুন বই দিয়ে পরিবর্তনের ব্যবস্থা করা হয়।
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item bg-white rounded-2xl border border-stone-200/90 overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-bold text-forest-dark text-base sm:text-lg cursor-pointer">
+            <span>৪. সব বই কি সবসময় স্টকে থাকে?</span>
+            <span class="faq-icon text-amberwarm text-2xl font-normal transition-transform duration-200">+</span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-stone-600 text-sm sm:text-base leading-relaxed border-t border-stone-100 pt-3">
+            জনপ্রিয় ও নিয়মিত বইগুলো আমাদের স্টকে প্রস্তুত থাকে এবং দ্রুত ডেলিভারি হয়। প্রি-অর্ডার বা বিশেষ সোর্সিংয়ের দুর্লভ বইয়ের ক্ষেত্রে অর্ডার করার সময়ই সম্ভাব্য ডেলিভারি তারিখ জানিয়ে দেওয়া হয়।
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item bg-white rounded-2xl border border-stone-200/90 overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-bold text-forest-dark text-base sm:text-lg cursor-pointer">
+            <span>৫. কর্পোরেট, স্কুল-কলেজ বা লাইব্রেরির জন্য বাল্ক অর্ডারের সুযোগ আছে?</span>
+            <span class="faq-icon text-amberwarm text-2xl font-normal transition-transform duration-200">+</span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-stone-600 text-sm sm:text-base leading-relaxed border-t border-stone-100 pt-3">
+            হ্যাঁ, শিক্ষাপ্রতিষ্ঠান, অফিস লাইব্রেরি, পাঠচক্র বা উপহারের জন্য একসাথে বেশি বই (বাল্ক অর্ডার) নিলে বিশেষ পাইকারি ছাড় ও কাস্টম প্যাকেজিং সুবিধা দেওয়া হয়।
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 7. FINAL CTA & CONTACT FOOTER ==================== -->
+  <footer id="contact" class="bg-forest-dark text-stone-200">
+    
+    <!-- Final Call to Action Banner -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10">
+      <div class="bg-gradient-to-r from-forest to-forest-light rounded-3xl p-8 sm:p-12 text-center border border-white/10 shadow-xl">
+        <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white max-w-2xl mx-auto leading-snug">
+          আর দেরি কেন? আপনার পছন্দের বইটি আজই যুক্ত করুন রিডিং লিস্টে।
+        </h2>
+        <p class="text-emerald-100 mt-3 text-base sm:text-lg max-w-xl mx-auto">
+          ঘরে বসেই অরিজিনাল বই, সেরা ছাড় এবং ফ্রি বুকমার্ক গিফট পেতে নিচের বাটনে ক্লিক করুন।
+        </p>
+        <div class="mt-7">
+          <button onclick="openOrderModal('পছন্দের বই')" class="bg-amberwarm hover:bg-amberwarm-hover text-white font-bold px-8 py-4 rounded-xl text-base sm:text-lg shadow-lg hover:shadow-xl transition cursor-pointer">
+            এখনই অর্ডার করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Information & Footer Columns -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-white/10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Brand About -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="font-serif text-2xl font-bold text-white">বইঘর</span>
+            <span class="text-xs bg-amberwarm text-white px-2 py-0.5 rounded font-semibold">BoiGhor</span>
+          </div>
+          <p class="text-sm text-stone-300 leading-relaxed">
+            পাঠকদের বিশ্বস্ত অনলাইন বুকশপ। দেশি-বিদেশি সব প্রকাশনীর অরিজিনাল বই সেরা ছাড় ও যত্নশীল প্যাকেজিংয়ে পৌঁছে দিচ্ছি সারাদেশে।
+          </p>
+        </div>
+
+        <!-- Phone & WhatsApp -->
+        <div class="space-y-2.5">
+          <h3 class="font-serif text-lg font-bold text-white">ফোন ও হোয়াটসঅ্যাপ</h3>
+          <p class="text-sm text-stone-300">
+            <strong class="text-white">হটলাইন:</strong> +880 1700-000000
+          </p>
+          <p class="text-sm text-stone-300">
+            <strong class="text-white">হোয়াটসঅ্যাপ:</strong> +880 1700-000000
+          </p>
+          <p class="text-xs text-emerald-300">সাপোর্ট সময়: প্রতিদিন সকাল ৯টা – রাত ১০টা</p>
+        </div>
+
+        <!-- Physical Address -->
+        <div class="space-y-2.5">
+          <h3 class="font-serif text-lg font-bold text-white">অফিস ও পিকআপ পয়েন্ট</h3>
+          <p class="text-sm text-stone-300 leading-relaxed">
+            বাড়ি নং-১২, রোড-০৪, সেক্টর-৬,<br />
+            উত্তরা, ঢাকা-১২৩০, বাংলাদেশ।
+          </p>
+          <p class="text-sm text-stone-300">
+            <strong class="text-white">ইমেইল:</strong> support@boighor-shop.com
+          </p>
+        </div>
+
+        <!-- Social & Digital Links -->
+        <div class="space-y-3">
+          <h3 class="font-serif text-lg font-bold text-white">ডিজিটাল প্ল্যাটফর্ম</h3>
+          <ul class="space-y-2 text-sm text-stone-300">
+            <li>
+              <a href="#products" class="hover:text-amberwarm transition flex items-center gap-2">
+                <span>→</span> ফেসবুক অফিশিয়াল পেজ
+              </a>
+            </li>
+            <li>
+              <a href="#reviews" class="hover:text-amberwarm transition flex items-center gap-2">
+                <span>→</span> বইঘর পাঠক ফোরাম (গ্রুপ)
+              </a>
+            </li>
+            <li>
+              <a href="#faq" class="hover:text-amberwarm transition flex items-center gap-2">
+                <span>→</span> রিটার্ন ও রিপ্লেসমেন্ট নীতিমালা
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="mt-10 pt-6 border-t border-white/10 text-center text-xs text-stone-400">
+        © ২০২৬ বইঘর (BoiGhor Online Bookstore)। সর্বস্বত্ব সংরক্ষিত।
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== 8. QUICK ORDER MODAL ==================== -->
+  <div id="order-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-stone-200 relative max-h-[92vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeOrderModal()" aria-label="বন্ধ করুন" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center font-bold cursor-pointer">
+        ✕
+      </button>
+
+      <!-- Modal Form State -->
+      <div id="order-form-container">
+        <span class="text-xs font-bold uppercase tracking-wider text-amberwarm">ক্যাশ অন ডেলিভারি</span>
+        <h3 class="font-serif text-2xl font-bold text-forest-dark mt-1">দ্রুত বই অর্ডার করুন</h3>
+        <p class="text-sm text-stone-500 mt-1">নিচের তথ্যগুলো দিন, আমাদের প্রতিনিধি দ্রুত কল করে অর্ডার কনফার্ম করবেন।</p>
+
+        <form id="quick-order-form" class="mt-5 space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-stone-700 mb-1">বইয়ের নাম / প্যাকেজ *</label>
+            <input type="text" id="order-book-name" required placeholder="যেমন: জোছনা ও মেঘের গল্প" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-forest text-sm" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">আপনার নাম *</label>
+              <input type="text" id="order-customer-name" required placeholder="পূর্ণ নাম লিখুন" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-forest text-sm" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">মোবাইল নম্বর *</label>
+              <input type="tel" id="order-phone" required placeholder="01XXXXXXXXX" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-forest text-sm" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-stone-700 mb-1">ডেলিভারি এলাকা *</label>
+            <select id="order-zone" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-forest text-sm bg-white">
+              <option value="ঢাকার ভেতরে (ডেলিভারি চার্জ: ৬০ টাকা)">ঢাকার ভেতরে — ৬০ টাকা (১–২ দিন)</option>
+              <option value="ঢাকার বাইরে (ডেলিভারি চার্জ: ১২০ টাকা)">ঢাকার বাইরে — ১২০ টাকা (২–৪ দিন)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-stone-700 mb-1">পূর্ণ ডেলিভারি ঠিকানা *</label>
+            <textarea id="order-address" rows="2" required placeholder="বাসা/রোড নং, এলাকা, থানা ও জেলা লিখুন" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-forest text-sm"></textarea>
+          </div>
+
+          <div class="bg-emerald-50 text-forest text-xs p-3 rounded-xl flex items-center gap-2">
+            <span>🎁</span>
+            <span>এই অর্ডারের সাথে থাকছে <strong>ফ্রি বুকমার্ক</strong> ও সুরক্ষিত বাবল-র‍্যাপ প্যাকেজিং!</span>
+          </div>
+
+          <button type="submit" class="w-full bg-amberwarm hover:bg-amberwarm-hover text-white font-bold py-3.5 rounded-xl shadow-md transition text-base cursor-pointer">
+            অর্ডার কনফার্ম করুন (ক্যাশ অন ডেলিভারি)
+          </button>
+        </form>
+      </div>
+
+      <!-- Order Success Message State -->
+      <div id="order-success-container" class="hidden text-center py-6 space-y-4">
+        <div class="w-16 h-16 rounded-full bg-emerald-100 text-forest flex items-center justify-center mx-auto text-3xl font-bold">
+          ✓
+        </div>
+        <h3 class="font-serif text-2xl font-bold text-forest-dark">আপনার অর্ডারটি গৃহীত হয়েছে!</h3>
+        <p id="order-summary-text" class="text-sm text-stone-600 leading-relaxed"></p>
+        <div class="pt-2">
+          <button onclick="closeOrderModal()" class="bg-forest hover:bg-forest-light text-white font-semibold px-6 py-2.5 rounded-xl transition cursor-pointer">
+            ঠিক আছে
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== INTERACTIVE JAVASCRIPT ==================== -->
+  <script>
+    // 1. Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // 2. Category Filter Tabs
+    const catButtons = document.querySelectorAll('.cat-btn');
+    const bookCards = document.querySelectorAll('.book-card');
+
+    catButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button styling
+        catButtons.forEach(b => {
+          b.classList.remove('bg-forest', 'text-white');
+          b.classList.add('bg-white', 'text-stone-700', 'border', 'border-stone-200');
+        });
+        btn.classList.add('bg-forest', 'text-white');
+        btn.classList.remove('bg-white', 'text-stone-700', 'border', 'border-stone-200');
+
+        const selectedCat = btn.getAttribute('data-category');
+
+        bookCards.forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (selectedCat === 'all' || cardCat === selectedCat || cardCat === 'all') {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // 3. FAQ Accordion Toggle
+    const faqTriggers = document.querySelectorAll('.faq-trigger');
+
+    faqTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const content = trigger.nextElementSibling;
+        const icon = trigger.querySelector('.faq-icon');
+        const isOpen = !content.classList.contains('hidden');
+
+        // Close all other FAQs for clean UI
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-icon').forEach(i => {
+          i.textContent = '+';
+          i.classList.remove('rotate-45');
+        });
+
+        if (!isOpen) {
+          content.classList.remove('hidden');
+          icon.textContent = '−';
+        }
+      });
+    });
+
+    // 4. Quick Order Modal Logic
+    const orderModal = document.getElementById('order-modal');
+    const orderBookInput = document.getElementById('order-book-name');
+    const orderFormContainer = document.getElementById('order-form-container');
+    const orderSuccessContainer = document.getElementById('order-success-container');
+    const quickOrderForm = document.getElementById('quick-order-form');
+    const orderSummaryText = document.getElementById('order-summary-text');
+
+    function openOrderModal(bookTitle) {
+      orderFormContainer.classList.remove('hidden');
+      orderSuccessContainer.classList.add('hidden');
+      orderBookInput.value = bookTitle || '';
+      orderModal.classList.remove('hidden');
+      orderModal.classList.add('flex');
+    }
+
+    function closeOrderModal() {
+      orderModal.classList.add('hidden');
+      orderModal.classList.remove('flex');
+    }
+
+    // Close modal when clicking outside dialog
+    orderModal.addEventListener('click', (e) => {
+      if (e.target === orderModal) {
+        closeOrderModal();
+      }
+    });
+
+    // Handle Form Submission (No alert() used)
+    quickOrderForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const customerName = document.getElementById('order-customer-name').value.trim();
+      const bookName = orderBookInput.value.trim();
+      const phone = document.getElementById('order-phone').value.trim();
+      const zone = document.getElementById('order-zone').value;
+
+      orderSummaryText.innerHTML = `ধন্যবাদ <strong>${customerName}</strong>! আপনার <strong>"${bookName}"</strong> বইয়ের অর্ডারটি (${zone}) সফলভাবে জমা হয়েছে। শীঘ্রই <strong>${phone}</strong> নম্বরে কল করে কনফার্ম করা হবে।`;
+
+      orderFormContainer.classList.add('hidden');
+      orderSuccessContainer.classList.remove('hidden');
+      quickOrderForm.reset();
+    });
+  </script>
+</body>
+</html>
